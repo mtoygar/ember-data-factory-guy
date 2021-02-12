@@ -111,7 +111,7 @@ module('MockQueryRecord', function(hooks) {
         adapter     = FactoryGuy.store.adapterFor('user'),
         user        = make('user');
 
-    let urlForQueryRecordCalled = 0;    
+    let urlForQueryRecordCalled = 0;
     adapter.urlForQueryRecord = (query) => {
       urlForQueryRecordCalled++;
       assert.equal(query.zip, 'it', 'query params are passed in');
@@ -142,9 +142,15 @@ module('MockQueryRecord', function(hooks) {
       }
     };
 
-    let mock = mockQueryRecord('user', queryParams).returns({model: user});
+    let mock = mockQueryRecord('user', {current: true}).returns({model: user});
     assert.equal(mock.getUrl(), '/users/current');
 
-    await FactoryGuy.store.queryRecord('user', queryParams);
+    console.log('queryParams', queryParams);
+    console.log('mock', mock);
+    debugger;
+    console.log('mockQueryParams', mock.queryParams);
+
+    await FactoryGuy.store.queryRecord('user', {current: true});
+    console.log('mockQueryParams', mock.queryParams);
   });
 });

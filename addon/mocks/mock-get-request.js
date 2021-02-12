@@ -10,6 +10,7 @@ class MockGetRequest extends MockStoreRequest {
 
   constructor(modelName, requestType, {defaultResponse, queryParams}={}) {
     super(modelName, requestType);
+    this.initialQueryParams = assign({}, queryParams);
     this.queryParams = queryParams;
     if (defaultResponse !== undefined) {
       this.setResponseJson(this.fixtureBuilder.convertForBuild(modelName, defaultResponse));
